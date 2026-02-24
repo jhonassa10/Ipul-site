@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería - IPUL Brewster</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Galería - IPUL Brewster</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
             --primary: #1a4d8f;
             --secondary: #d4af37;
@@ -63,109 +64,104 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">IPUL BREWSTER</div>
-            <a href="index.html" class="back-link">← Volver al Inicio</a>
-        </div>
-    </nav>
-    
-    <div class="gallery-header">
-        <h1>Galería de Momentos</h1>
-        <p>Momentos especiales que hemos vivido como familia en Cristo</p>
-    </div>
-    
-    <div class="gallery-container">
-        <div class="gallery-filters">
-            <button class="filter-btn active" data-filter="all">Todas</button>
-            <button class="filter-btn" data-filter="cultos">Cultos</button>
-            <button class="filter-btn" data-filter="eventos">Eventos Especiales</button>
-            <button class="filter-btn" data-filter="comunidad">Comunidad</button>
-            <button class="filter-btn" data-filter="jovenes">Jóvenes</button>
-            <button class="filter-btn" data-filter="ninos">Niños</button>
-        </div>
-        
-        <div class="gallery-grid">
-            <div class="gallery-item" data-category="comunidad">
-                <img src="images/galeria/foto1.jpg" alt="Reunión de familia">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Reunión Familiar</div>
-                    <div class="gallery-category">Comunidad</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="cultos">
-                <img src="images/galeria/foto2.jpg" alt="Servicio dominical">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Servicio Dominical</div>
-                    <div class="gallery-category">Cultos</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="eventos">
-                <img src="images/galeria/foto3.jpg" alt="Evento especial">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Conferencia Especial</div>
-                    <div class="gallery-category">Eventos Especiales</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="jovenes">
-                <img src="images/galeria/foto4.jpg" alt="Actividad jóvenes">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Reunión de Jóvenes</div>
-                    <div class="gallery-category">Jóvenes</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="ninos">
-                <img src="images/galeria/foto5.jpg" alt="Escuela dominical">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Escuela Dominical</div>
-                    <div class="gallery-category">Niños</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="comunidad">
-                <img src="images/galeria/foto6.jpg" alt="Convivencia">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Convivencia Familiar</div>
-                    <div class="gallery-category">Comunidad</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="cultos">
-                <img src="images/galeria/foto7.jpg" alt="Adoración">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Momento de Adoración</div>
-                    <div class="gallery-category">Cultos</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="eventos">
-                <img src="images/galeria/foto8.jpg" alt="Vigilia">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Vigilia de Oración</div>
-                    <div class="gallery-category">Eventos Especiales</div>
-                </div>
-            </div>
-            <div class="gallery-item" data-category="jovenes">
-                <img src="images/galeria/foto9.jpg" alt="Retiro jóvenes">
-                <div class="gallery-overlay">
-                    <div class="gallery-title">Retiro de Jóvenes</div>
-                    <div class="gallery-category">Jóvenes</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
-        <div class="lightbox-prev lightbox-nav" onclick="changeLightboxImage(-1)">‹</div>
-        <div class="lightbox-next lightbox-nav" onclick="changeLightboxImage(1)">›</div>
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="">
-            <div class="lightbox-info">
-                <h3 id="lightbox-title"></h3>
-                <p id="lightbox-category"></p>
-            </div>
-        </div>
-    </div>
-    
-    <script>
+<nav>
+<div class="nav-container">
+<div class="logo">IPUL BREWSTER</div>
+<a class="back-link" href="index.html">← Volver al Inicio</a>
+</div>
+</nav>
+<div class="gallery-header">
+<h1>Galería de Momentos</h1>
+<p>Momentos especiales que hemos vivido como familia en Cristo</p>
+</div>
+<div class="gallery-container">
+<div class="gallery-filters">
+<button class="filter-btn active" data-filter="all">Todas</button>
+<button class="filter-btn" data-filter="cultos">Cultos</button>
+<button class="filter-btn" data-filter="eventos">Eventos Especiales</button>
+<button class="filter-btn" data-filter="comunidad">Comunidad</button>
+<button class="filter-btn" data-filter="jovenes">Jóvenes</button>
+<button class="filter-btn" data-filter="ninos">Niños</button>
+</div>
+<div class="gallery-grid">
+<div class="gallery-item" data-category="comunidad">
+<img alt="Reunión de familia" src="images/galeria/foto1.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Reunión Familiar</div>
+<div class="gallery-category">Comunidad</div>
+</div>
+</div>
+<div class="gallery-item" data-category="cultos" style="display:none">
+<img alt="Servicio dominical" src="images/galeria/foto2.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Servicio Dominical</div>
+<div class="gallery-category">Cultos</div>
+</div>
+</div>
+<div class="gallery-item" data-category="eventos" style="display:none">
+<img alt="Evento especial" src="images/galeria/foto3.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Conferencia Especial</div>
+<div class="gallery-category">Eventos Especiales</div>
+</div>
+</div>
+<div class="gallery-item" data-category="jovenes" style="display:none">
+<img alt="Actividad jóvenes" src="images/galeria/foto4.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Reunión de Jóvenes</div>
+<div class="gallery-category">Jóvenes</div>
+</div>
+</div>
+<div class="gallery-item" data-category="ninos" style="display:none">
+<img alt="Escuela dominical" src="images/galeria/foto5.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Escuela Dominical</div>
+<div class="gallery-category">Niños</div>
+</div>
+</div>
+<div class="gallery-item" data-category="comunidad" style="display:none">
+<img alt="Convivencia" src="images/galeria/foto6.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Convivencia Familiar</div>
+<div class="gallery-category">Comunidad</div>
+</div>
+</div>
+<div class="gallery-item" data-category="cultos" style="display:none">
+<img alt="Adoración" src="images/galeria/foto7.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Momento de Adoración</div>
+<div class="gallery-category">Cultos</div>
+</div>
+</div>
+<div class="gallery-item" data-category="eventos" style="display:none">
+<img alt="Vigilia" src="images/galeria/foto8.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Vigilia de Oración</div>
+<div class="gallery-category">Eventos Especiales</div>
+</div>
+</div>
+<div class="gallery-item" data-category="jovenes" style="display:none">
+<img alt="Retiro jóvenes" src="images/galeria/foto9.jpg"/>
+<div class="gallery-overlay">
+<div class="gallery-title">Retiro de Jóvenes</div>
+<div class="gallery-category">Jóvenes</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lightbox" id="lightbox">
+<div class="lightbox-close" onclick="closeLightbox()">✕</div>
+<div class="lightbox-prev lightbox-nav" onclick="changeLightboxImage(-1)">‹</div>
+<div class="lightbox-next lightbox-nav" onclick="changeLightboxImage(1)">›</div>
+<div class="lightbox-content">
+<img alt="" id="lightbox-img" src=""/>
+<div class="lightbox-info">
+<h3 id="lightbox-title"></h3>
+<p id="lightbox-category"></p>
+</div>
+</div>
+</div>
+<script>
         const filterButtons = document.querySelectorAll('.filter-btn');
         const galleryItems = document.querySelectorAll('.gallery-item');
         

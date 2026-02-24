@@ -135,6 +135,11 @@ def write_soup(soup, filename):
 
 # ── Galería ─────────────────────────────────────────
 
+def is_hidden(element):
+    """Verifica si un elemento HTML tiene display:none"""
+    style = element.get('style', '')
+    return 'display:none' in style.replace(' ', '')
+
 def get_gallery_items():
     soup = read_soup('galeria.html')
     items = []
@@ -151,8 +156,48 @@ def get_gallery_items():
                 'title': title_el.text.strip() if title_el else '',
                 'category_display': cat_el.text.strip() if cat_el else '',
                 'category': (item.get('data-category') or '').strip(),
+                'hidden': is_hidden(item),
             })
     return items
+
+def toggle_gallery_item(img_src, hide):
+    """Oculta o muestra una foto en galeria.html e index.html"""
+    for fname in ['galeria.html', 'index.html']:
+        fpath = SITE_DIR / fname
+        if not fpath.exists():
+            continue
+        soup = read_soup(fname)
+        grid = soup.find('div', class_='gallery-grid')
+        if grid:
+            for item in grid.find_all('div', class_='gallery-item'):
+                img = item.find('img')
+                if img and img.get('src') == img_src:
+                    if hide:
+                        item['style'] = 'display:none'
+                    else:
+                        item.attrs.pop('style', None)
+            write_soup(soup, fname)
+
+def replace_gallery_item(old_src, new_filename):
+    """Reemplaza la imagen de una foto en galeria.html e index.html"""
+    new_src = f'images/galeria/{new_filename}'
+    for fname in ['galeria.html', 'index.html']:
+        fpath = SITE_DIR / fname
+        if not fpath.exists():
+            continue
+        soup = read_soup(fname)
+        grid = soup.find('div', class_='gallery-grid')
+        if grid:
+            for item in grid.find_all('div', class_='gallery-item'):
+                img = item.find('img')
+                if img and img.get('src') == old_src:
+                    img['src'] = new_src
+                    img['alt'] = img.get('alt', '')
+            write_soup(soup, fname)
+    # Eliminar imagen antigua si está en la carpeta galeria
+    old_path = SITE_DIR / old_src
+    if old_path.exists() and 'galeria' in str(old_path):
+        old_path.unlink()
 
 def add_gallery_item(img_filename, title, category, category_display, alt=''):
     img_src = f'images/galeria/{img_filename}'
@@ -213,8 +258,22 @@ def get_events():
                 'title':   title.text.strip() if title else '',
                 'time':    time_text,
                 'description': desc.get_text(strip=True) if desc else '',
+                'hidden':  is_hidden(card),
             })
     return events
+
+def toggle_event(event_index, hide):
+    """Oculta o muestra un evento en index.html"""
+    soup = read_soup('index.html')
+    grid = soup.find('div', class_='events-grid')
+    if grid:
+        cards = grid.find_all('div', class_='event-card')
+        if 0 <= event_index < len(cards):
+            if hide:
+                cards[event_index]['style'] = 'display:none'
+            else:
+                cards[event_index].attrs.pop('style', None)
+            write_soup(soup, 'index.html')
 
 def add_event(title, time_text, description, tag, img_src='images/community.jpg'):
     new_html = f'''<div class="event-card">
@@ -281,8 +340,27 @@ def get_directivas():
                 'img_src': img['src'] if img else '',
                 'title':   h3.text.strip() if h3 else '',
                 'info':    p.get_text('\n').strip() if p else '',
+                'hidden':  is_hidden(card),
             })
     return items
+
+def toggle_directiva(directiva_index, hide):
+    """Oculta o muestra una directiva"""
+    for fname in ['directivas.html', 'index.html']:
+        fpath = SITE_DIR / fname
+        if not fpath.exists():
+            continue
+        soup = read_soup(fname)
+        all_cards = []
+        for grid in soup.find_all('div', class_='directivas-grid'):
+            all_cards.extend(grid.find_all('div', class_='directiva-card'))
+        if 0 <= directiva_index < len(all_cards):
+            if hide:
+                all_cards[directiva_index]['style'] = 'display:none'
+            else:
+                all_cards[directiva_index].attrs.pop('style', None)
+            write_soup(soup, fname)
+            break
 
 def edit_directiva(directiva_index, info_text):
     for fname in ['directivas.html', 'index.html']:
@@ -515,6 +593,20 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background:#f0f4f8; color
 }
 .stat-card .stat-num { font-size: 32px; font-weight: 800; color: var(--primary); }
 .stat-card .stat-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+/* Oculto / Hidden */
+.hidden-item { opacity: 0.45; }
+.hidden-item img { filter: grayscale(60%); }
+.hidden-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #ffc107; color: #333; padding: 3px 10px;
+  border-radius: 12px; font-size: 11px; font-weight: 700;
+  margin-top: 6px; text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-toggle-hide { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
+.btn-toggle-hide:hover { background: #ffc107; color: #000; }
+.btn-toggle-show { background: #d4edda; color: #155724; border: 1px solid #28a745; }
+.btn-toggle-show:hover { background: #28a745; color: white; }
 </style>
 </head>
 <body>
@@ -581,6 +673,32 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background:#f0f4f8; color
 </div>
 
 <!-- ════════════ MODALES ════════════ -->
+
+<!-- Modal: Cambiar Foto -->
+<div id="modal-replace-photo" class="modal-overlay" onclick="closeModalOutside(event, 'modal-replace-photo')">
+  <div class="modal">
+    <h2>🔄 Cambiar Foto</h2>
+    <input type="hidden" id="replace-old-src" />
+    <div class="form-group">
+      <label>Foto actual</label>
+      <img id="replace-current-img" src="" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:8px;">
+      <div style="font-weight:600;font-size:14px;" id="replace-current-title"></div>
+    </div>
+    <div class="form-group">
+      <label>Nueva foto *</label>
+      <div class="upload-zone" id="replace-upload-zone" onclick="document.getElementById('replace-photo-file').click()">
+        <div class="upload-icon">🖼</div>
+        <p>Haz clic para seleccionar la nueva foto<br><small>JPG, PNG, WEBP — reemplazará la foto actual</small></p>
+        <input type="file" id="replace-photo-file" accept="image/*" onchange="previewReplacePhoto(this)">
+        <div class="upload-preview" id="replace-upload-preview"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-replace-photo')">Cancelar</button>
+      <button class="btn btn-success btn-lg" onclick="submitReplacePhoto()">✓ Reemplazar Foto</button>
+    </div>
+  </div>
+</div>
 
 <!-- Modal: Agregar Foto -->
 <div id="modal-add-photo" class="modal-overlay" onclick="closeModalOutside(event, 'modal-add-photo')">
@@ -762,12 +880,18 @@ function renderGallery() {
     return;
   }
   grid.innerHTML = galleryItems.map((item, i) => `
-    <div class="photo-card">
+    <div class="photo-card ${item.hidden ? 'hidden-item' : ''}">
       <img src="${item.src}" alt="${item.alt}" onerror="this.src='https://via.placeholder.com/300x180?text=Foto'">
       <div class="card-body">
         <div class="card-title">${item.title || 'Sin título'}</div>
         <div class="card-cat">${CATEGORY_EMOJIS[item.category]||''} ${item.category_display || item.category}</div>
-        <div class="card-actions">
+        ${item.hidden ? '<div class="hidden-badge">👁‍🗨 Oculto en el sitio</div>' : ''}
+        <div class="card-actions" style="flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="openReplacePhoto('${item.src}', '${item.title}')">🔄 Cambiar</button>
+          ${item.hidden
+            ? `<button class="btn btn-toggle-show" onclick="togglePhoto('${item.src}', false)">👁 Mostrar</button>`
+            : `<button class="btn btn-toggle-hide" onclick="togglePhoto('${item.src}', true)">🙈 Ocultar</button>`
+          }
           <button class="btn btn-danger" onclick="confirmRemovePhoto('${item.src}', '${item.title}')">🗑 Eliminar</button>
         </div>
       </div>
@@ -784,16 +908,21 @@ function renderEvents() {
     return;
   }
   list.innerHTML = eventItems.map((ev, i) => `
-    <div class="event-item">
+    <div class="event-item ${ev.hidden ? 'hidden-item' : ''}">
       <img src="${ev.img_src}" alt="${ev.title}" onerror="this.src='https://via.placeholder.com/80?text=Foto'">
       <div class="event-info">
         <div class="event-tag-badge">${ev.tag}</div>
         <h3>${ev.title}</h3>
         <div class="event-time-text">📅 ${ev.time}</div>
         <p>${ev.description}</p>
+        ${ev.hidden ? '<div class="hidden-badge" style="margin-top:8px;">👁‍🗨 Oculto en el sitio</div>' : ''}
       </div>
       <div class="event-actions">
         <button class="btn btn-warning" onclick="openEditEvent(${i})">✏️ Editar</button>
+        ${ev.hidden
+          ? `<button class="btn btn-toggle-show" onclick="toggleEvent(${i}, false)">👁 Mostrar</button>`
+          : `<button class="btn btn-toggle-hide" onclick="toggleEvent(${i}, true)">🙈 Ocultar</button>`
+        }
         <button class="btn btn-danger" onclick="confirmRemoveEvent(${i}, '${ev.title}')">🗑 Eliminar</button>
       </div>
     </div>
@@ -807,13 +936,18 @@ function renderDirectivas() {
     return;
   }
   grid.innerHTML = directivaItems.map((d, i) => `
-    <div class="directiva-item">
+    <div class="directiva-item ${d.hidden ? 'hidden-item' : ''}">
       <img src="${d.img_src}" alt="${d.title}" onerror="this.src='https://via.placeholder.com/300x160?text=Directiva'">
       <div class="directiva-body">
         <h3>${d.title}</h3>
         <p id="dir-text-${i}">${d.info.replace(/\\n/g,'<br>')}</p>
-        <div style="margin-top:12px;">
-          <button class="btn btn-warning" onclick="openEditDirectiva(${i})">✏️ Editar Información</button>
+        ${d.hidden ? '<div class="hidden-badge">👁‍🗨 Oculto en el sitio</div>' : ''}
+        <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-warning" onclick="openEditDirectiva(${i})">✏️ Editar</button>
+          ${d.hidden
+            ? `<button class="btn btn-toggle-show" onclick="toggleDirectiva(${i}, false)">👁 Mostrar</button>`
+            : `<button class="btn btn-toggle-hide" onclick="toggleDirectiva(${i}, true)">🙈 Ocultar</button>`
+          }
         </div>
       </div>
     </div>
@@ -876,6 +1010,62 @@ function resetPhotoForm() {
   document.getElementById('photo-title').value = '';
   document.getElementById('upload-preview').innerHTML = '';
   document.getElementById('upload-zone').querySelector('p').style.display = '';
+}
+
+function openReplacePhoto(src, title) {
+  document.getElementById('replace-old-src').value = src;
+  document.getElementById('replace-current-img').src = src;
+  document.getElementById('replace-current-title').textContent = title;
+  document.getElementById('replace-upload-preview').innerHTML = '';
+  document.getElementById('replace-photo-file').value = '';
+  document.getElementById('replace-upload-zone').querySelector('p').style.display = '';
+  openModal('modal-replace-photo');
+}
+
+function previewReplacePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('replace-upload-preview').innerHTML =
+      `<img src="${e.target.result}" style="max-height:140px;border-radius:8px;margin-top:8px;">`;
+    document.getElementById('replace-upload-zone').querySelector('p').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitReplacePhoto() {
+  const oldSrc = document.getElementById('replace-old-src').value;
+  const file   = document.getElementById('replace-photo-file').files[0];
+  if (!file) { showToast('⚠️ Selecciona una nueva foto', 'error'); return; }
+  const formData = new FormData();
+  formData.append('old_src', oldSrc);
+  formData.append('file', file);
+  const res  = await fetch('/api/gallery/replace', { method: 'POST', body: formData });
+  const data = await res.json();
+  if (data.ok) {
+    showToast('✅ Foto reemplazada correctamente');
+    closeModal('modal-replace-photo');
+    galleryItems = [];
+    await loadGallery();
+  } else {
+    showToast('❌ Error: ' + data.error, 'error');
+  }
+}
+
+async function togglePhoto(src, hide) {
+  const formData = new FormData();
+  formData.append('src', src);
+  formData.append('hide', hide);
+  const res = await fetch('/api/gallery/toggle', { method: 'POST', body: formData });
+  const data = await res.json();
+  if (data.ok) {
+    showToast(hide ? '🙈 Foto ocultada del sitio' : '👁 Foto visible en el sitio');
+    galleryItems = [];
+    await loadGallery();
+  } else {
+    showToast('❌ Error: ' + data.error, 'error');
+  }
 }
 
 async function confirmRemovePhoto(src, title) {
@@ -965,6 +1155,21 @@ async function submitEditEvent() {
   }
 }
 
+async function toggleEvent(index, hide) {
+  const formData = new FormData();
+  formData.append('index', index);
+  formData.append('hide', hide);
+  const res = await fetch('/api/events/toggle', { method: 'POST', body: formData });
+  const data = await res.json();
+  if (data.ok) {
+    showToast(hide ? '🙈 Evento ocultado del sitio' : '👁 Evento visible en el sitio');
+    eventItems = [];
+    await loadEvents();
+  } else {
+    showToast('❌ Error: ' + data.error, 'error');
+  }
+}
+
 async function confirmRemoveEvent(index, title) {
   if (!confirm(`¿Eliminar el evento "${title}"?\n\nEsta acción no se puede deshacer.`)) return;
   const formData = new FormData();
@@ -999,6 +1204,21 @@ async function submitEditDirectiva() {
   if (data.ok) {
     showToast('✅ Directiva actualizada');
     closeModal('modal-edit-directiva');
+    directivaItems = [];
+    await loadDirectivas();
+  } else {
+    showToast('❌ Error: ' + data.error, 'error');
+  }
+}
+
+async function toggleDirectiva(index, hide) {
+  const formData = new FormData();
+  formData.append('index', index);
+  formData.append('hide', hide);
+  const res = await fetch('/api/directivas/toggle', { method: 'POST', body: formData });
+  const data = await res.json();
+  if (data.ok) {
+    showToast(hide ? '🙈 Directiva ocultada del sitio' : '👁 Directiva visible en el sitio');
     directivaItems = [];
     await loadDirectivas();
   } else {
@@ -1075,6 +1295,14 @@ class AdminHandler(http.server.SimpleHTTPRequestHandler):
                 self.handle_events_edit(form)
             elif path == '/api/directivas/edit':
                 self.handle_directivas_edit(form)
+            elif path == '/api/gallery/replace':
+                self.handle_gallery_replace(form)
+            elif path == '/api/gallery/toggle':
+                self.handle_gallery_toggle(form)
+            elif path == '/api/events/toggle':
+                self.handle_events_toggle(form)
+            elif path == '/api/directivas/toggle':
+                self.handle_directivas_toggle(form)
             else:
                 self.send_json({'ok': False, 'error': 'Endpoint no encontrado'}, 404)
         except Exception as e:
@@ -1157,6 +1385,46 @@ class AdminHandler(http.server.SimpleHTTPRequestHandler):
         if idx < 0:
             self.send_json({'ok': False, 'error': 'index inválido'}); return
         edit_directiva(idx, info)
+        self.send_json({'ok': True})
+
+    # ── Toggle (ocultar/mostrar) handlers ─────────────
+
+    def handle_gallery_replace(self, form):
+        old_src   = form.getvalue('old_src', '')
+        file_item = form['file'] if 'file' in form else None
+        if not old_src or not file_item or not file_item.filename:
+            self.send_json({'ok': False, 'error': 'Datos incompletos'}); return
+        ext       = Path(file_item.filename).suffix.lower() or '.jpg'
+        safe_name = uuid.uuid4().hex[:10] + ext
+        dest      = SITE_DIR / 'images' / 'galeria' / safe_name
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest, 'wb') as f:
+            f.write(file_item.file.read())
+        replace_gallery_item(old_src, safe_name)
+        self.send_json({'ok': True, 'new_src': f'images/galeria/{safe_name}'})
+
+    def handle_gallery_toggle(self, form):
+        src  = form.getvalue('src', '')
+        hide = form.getvalue('hide', 'true') == 'true'
+        if not src:
+            self.send_json({'ok': False, 'error': 'src requerido'}); return
+        toggle_gallery_item(src, hide)
+        self.send_json({'ok': True})
+
+    def handle_events_toggle(self, form):
+        idx  = int(form.getvalue('index', -1))
+        hide = form.getvalue('hide', 'true') == 'true'
+        if idx < 0:
+            self.send_json({'ok': False, 'error': 'index inválido'}); return
+        toggle_event(idx, hide)
+        self.send_json({'ok': True})
+
+    def handle_directivas_toggle(self, form):
+        idx  = int(form.getvalue('index', -1))
+        hide = form.getvalue('hide', 'true') == 'true'
+        if idx < 0:
+            self.send_json({'ok': False, 'error': 'index inválido'}); return
+        toggle_directiva(idx, hide)
         self.send_json({'ok': True})
 
     # ── Helpers ───────────────────────────────────────

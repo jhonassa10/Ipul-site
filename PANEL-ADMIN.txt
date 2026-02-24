@@ -1,0 +1,79 @@
+╔══════════════════════════════════════════════════════════╗
+║      IPUL Brewster - Panel de Administración             ║
+║      Cómo usar el panel para editar tu sitio web         ║
+╚══════════════════════════════════════════════════════════╝
+
+PASO 1: Abre una Terminal
+──────────────────────────
+  - En Mac: busca "Terminal" en Spotlight (Cmd + Espacio)
+  - En Windows: busca "Símbolo del sistema" o "PowerShell"
+
+PASO 2: Navega a la carpeta del sitio
+──────────────────────────────────────
+  Escribe este comando (cambia la ruta por donde está tu carpeta):
+
+    cd /ruta/a/tu/carpeta/ipul-site
+
+PASO 3: Inicia el panel de administración
+──────────────────────────────────────────
+  Escribe:
+    python3 admin.py
+
+  Verás este mensaje:
+    ╔══════════════════════════════════════════════════════╗
+    ║  Servidor iniciado en: http://localhost:8080/admin   ║
+    ╚══════════════════════════════════════════════════════╝
+
+PASO 4: Abre el Panel en tu Navegador
+───────────────────────────────────────
+  Abre Google Chrome o Safari y ve a:
+    http://localhost:8080/admin
+
+══════════════════════════════════════════════════════════
+  QUÉ PUEDES HACER EN EL PANEL
+══════════════════════════════════════════════════════════
+
+📸 GALERÍA (pestaña "Galería"):
+  ✅ Ver todas las fotos actuales
+  ✅ Agregar fotos nuevas (sube tu foto, ponle título y categoría)
+  ✅ Eliminar fotos que ya no quieres
+
+  Categorías disponibles:
+  - Cultos
+  - Eventos Especiales
+  - Comunidad
+  - Jóvenes
+  - Niños
+
+📅 EVENTOS (pestaña "Eventos"):
+  ✅ Ver todos los eventos actuales
+  ✅ Agregar un evento nuevo con título, hora y descripción
+  ✅ Editar un evento existente
+  ✅ Eliminar eventos que ya pasaron
+
+👥 DIRECTIVAS (pestaña "Directivas"):
+  ✅ Ver todas las directivas
+  ✅ Editar la información de cada directiva (líderes, secretarios, etc.)
+
+══════════════════════════════════════════════════════════
+  CÓMO DETENER EL PANEL
+══════════════════════════════════════════════════════════
+
+  En la Terminal, presiona: Ctrl + C
+
+══════════════════════════════════════════════════════════
+  REQUISITOS
+══════════════════════════════════════════════════════════
+
+  - Python 3 instalado (viene instalado en Mac y Linux)
+  - En Windows: descargar desde https://python.org
+  - Librería BeautifulSoup4 (se instala automáticamente)
+
+══════════════════════════════════════════════════════════
+  NOTA IMPORTANTE
+══════════════════════════════════════════════════════════
+
+  Los cambios se guardan automáticamente en los archivos HTML.
+  Para que los cambios se vean en tu sitio web en internet,
+  necesitas subir los archivos actualizados a tu hosting
+  (igual que siempre lo has hecho).

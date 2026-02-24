@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - IPUL Brewster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d8f;
+            --secondary: #d4af37;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--light); }
+        
+        nav { position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #1a4d8f 0%, #2563a8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .back-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back-link:hover { color: var(--secondary); }
+        
+        .gallery-header { padding: 150px 40px 80px; text-align: center; background: linear-gradient(135deg, var(--primary) 0%, #2563a8 100%); color: white; }
+        .gallery-header h1 { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 20px; }
+        .gallery-header p { font-size: 20px; opacity: 0.9; }
+        
+        .gallery-container { max-width: 1400px; margin: 0 auto; padding: 80px 40px; }
+        .gallery-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .filter-btn { padding: 12px 30px; background: white; border: 2px solid var(--primary); color: var(--primary); border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .filter-btn:hover, .filter-btn.active { background: var(--primary); color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(26, 77, 143, 0.3); }
+        
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .gallery-item { position: relative; height: 300px; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 30px 20px 20px; color: white; transform: translateY(100%); transition: transform 0.3s ease; }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+        .gallery-category { font-size: 13px; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px; }
+        .gallery-item.hidden { display: none; }
+        
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10000; align-items: center; justify-content: center; }
+        .lightbox.active { display: flex; }
+        .lightbox-content { position: relative; max-width: 90%; max-height: 90%; }
+        .lightbox-content img { max-width: 100%; max-height: 85vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .lightbox-info { text-align: center; color: white; margin-top: 20px; }
+        .lightbox-info h3 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 10px; }
+        .lightbox-info p { color: var(--secondary); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; color: var(--dark); transition: all 0.3s ease; z-index: 10001; }
+        .lightbox-close:hover { background: var(--secondary); transform: rotate(90deg); }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; color: white; transition: all 0.3s ease; }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-prev { left: 30px; }
+        .lightbox-next { right: 30px; }
+        
+        @media (max-width: 968px) {
+            .gallery-header h1 { font-size: 36px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-container { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">IPUL BREWSTER</div>
+            <a href="index.html" class="back-link">← Volver al Inicio</a>
+        </div>
+    </nav>
+    
+    <div class="gallery-header">
+        <h1>Galería de Momentos</h1>
+        <p>Momentos especiales que hemos vivido como familia en Cristo</p>
+    </div>
+    
+    <div class="gallery-container">
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="cultos">Cultos</button>
+            <button class="filter-btn" data-filter="eventos">Eventos Especiales</button>
+            <button class="filter-btn" data-filter="comunidad">Comunidad</button>
+            <button class="filter-btn" data-filter="jovenes">Jóvenes</button>
+            <button class="filter-btn" data-filter="ninos">Niños</button>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="comunidad">
+                <img src="images/galeria/foto1.jpg" alt="Reunión de familia">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Reunión Familiar</div>
+                    <div class="gallery-category">Comunidad</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cultos">
+                <img src="images/galeria/foto2.jpg" alt="Servicio dominical">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Servicio Dominical</div>
+                    <div class="gallery-category">Cultos</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="eventos">
+                <img src="images/galeria/foto3.jpg" alt="Evento especial">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Conferencia Especial</div>
+                    <div class="gallery-category">Eventos Especiales</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="jovenes">
+                <img src="images/galeria/foto4.jpg" alt="Actividad jóvenes">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Reunión de Jóvenes</div>
+                    <div class="gallery-category">Jóvenes</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="ninos">
+                <img src="images/galeria/foto5.jpg" alt="Escuela dominical">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Escuela Dominical</div>
+                    <div class="gallery-category">Niños</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="comunidad">
+                <img src="images/galeria/foto6.jpg" alt="Convivencia">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Convivencia Familiar</div>
+                    <div class="gallery-category">Comunidad</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="cultos">
+                <img src="images/galeria/foto7.jpg" alt="Adoración">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Momento de Adoración</div>
+                    <div class="gallery-category">Cultos</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="eventos">
+                <img src="images/galeria/foto8.jpg" alt="Vigilia">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Vigilia de Oración</div>
+                    <div class="gallery-category">Eventos Especiales</div>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="jovenes">
+                <img src="images/galeria/foto9.jpg" alt="Retiro jóvenes">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Retiro de Jóvenes</div>
+                    <div class="gallery-category">Jóvenes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+        <div class="lightbox-prev lightbox-nav" onclick="changeLightboxImage(-1)">‹</div>
+        <div class="lightbox-next lightbox-nav" onclick="changeLightboxImage(1)">›</div>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-category"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                const filterValue = this.getAttribute('data-filter');
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        
+        let currentLightboxIndex = 0;
+        const visibleItems = () => Array.from(galleryItems).filter(item => !item.classList.contains('hidden'));
+        
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', function() {
+                openLightbox(Array.from(galleryItems).indexOf(item));
+            });
+        });
+        
+        function openLightbox(index) {
+            const items = visibleItems();
+            const allItems = Array.from(galleryItems);
+            currentLightboxIndex = items.indexOf(allItems[index]);
+            const item = items[currentLightboxIndex];
+            const img = item.querySelector('img');
+            const title = item.querySelector('.gallery-title').textContent;
+            const category = item.querySelector('.gallery-category').textContent;
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-category').textContent = category;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function changeLightboxImage(direction) {
+            const items = visibleItems();
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex < 0) currentLightboxIndex = items.length - 1;
+            if (currentLightboxIndex >= items.length) currentLightboxIndex = 0;
+            const item = items[currentLightboxIndex];
+            const img = item.querySelector('img');
+            const title = item.querySelector('.gallery-title').textContent;
+            const category = item.querySelector('.gallery-category').textContent;
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-category').textContent = category;
+        }
+        
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+            if (e.key === 'ArrowRight') changeLightboxImage(1);
+        });
+    </script>
+</body>
+</html>

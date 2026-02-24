@@ -1,0 +1,113 @@
+# 📸 GUÍA PARA DESCARGAR LAS IMÁGENES FALTANTES
+
+## ⚠️ PROBLEMA DETECTADO:
+Solo 2 de las 5 imágenes están en la carpeta. Necesitas descargar 3 más.
+
+---
+
+## 📥 IMÁGENES QUE NECESITAS DESCARGAR:
+
+### 1️⃣ **HERO-CHURCH.JPG** (Foto de fondo del inicio)
+
+**OPCIÓN A - Desde tu sitio actual:**
+1. Ve a: https://www.ipulbrewster.com
+2. La primera imagen grande que ves al entrar (donde está el versículo)
+3. **Click derecho** sobre la imagen
+4. **"Guardar imagen como..."**
+5. Guárdala como: `hero-church.jpg`
+6. Cópiala a la carpeta `images/`
+
+**OPCIÓN B - URL directa:**
+Copia esta URL en tu navegador y descarga:
+```
+https://www.ipulbrewster.com/uploads/4/6/8/1/46817705/published/photo-2024-05-21-12-01-22.jpg
+```
+Luego renómbrala a: `hero-church.jpg`
+
+---
+
+### 2️⃣ **COMMUNITY.JPG** (Foto del grupo/comunidad)
+
+**OPCIÓN A - Desde tu sitio actual:**
+1. Ve a: https://www.ipulbrewster.com
+2. Baja un poco, donde dice "MAS QUE UNA COMUNIDAD SOMOS UNA FAMILIA"
+3. Verás una foto de grupo/personas
+4. **Click derecho** sobre esa imagen
+5. **"Guardar imagen como..."**
+6. Guárdala como: `community.jpg`
+7. Cópiala a la carpeta `images/`
+
+**OPCIÓN B - URL directa:**
+Copia esta URL en tu navegador y descarga:
+```
+https://www.ipulbrewster.com/uploads/4/6/8/1/46817705/dl5a3028-enhanced-nr_orig.jpg
+```
+Luego renómbrala a: `community.jpg`
+
+---
+
+### 3️⃣ **ORACION-CABALLEROS.JPG** (Para el evento de caballeros)
+
+**OPCIÓN A - Usa una imagen de tu sitio actual:**
+En tu sitio actual hay 3 imágenes de eventos (después de "MAS QUE UNA COMUNIDAD"):
+- Imagen de "Noches de Victoria - DAMAS"
+- Imagen de "Oracion los Jueves - CABALLEROS"
+- Imagen de "Oración los Viernes - IGLESIA"
+
+Descarga la segunda imagen (CABALLEROS):
+1. Click derecho sobre esa imagen
+2. "Guardar imagen como..."
+3. Guárdala como: `oracion-caballeros.jpg`
+4. Cópiala a la carpeta `images/`
+
+**OPCIÓN B - Usa imagen genérica:**
+Si prefieres, puedes buscar en Google "hombres orando" y usar esa foto temporalmente.
+
+---
+
+## 🎯 RESUMEN RÁPIDO:
+
+Después de descargar, tu carpeta `images/` debe tener:
+
+```
+images/
+├── ofrenda-zelle.png ✅ (ya la tienes)
+├── noches-victoria-damas.png ✅ (ya la tienes)
+├── hero-church.jpg ⬅️ DESCARGAR ESTA
+├── community.jpg ⬅️ DESCARGAR ESTA
+├── oracion-caballeros.jpg ⬅️ DESCARGAR ESTA
+└── oracion-viernes.jpg ✅ (ya funciona según dijiste)
+```
+
+---
+
+## ✅ VERIFICACIÓN:
+
+Para verificar que funcionan ANTES de subir a Netlify:
+
+1. Pon las 3 fotos en la carpeta `images/`
+2. Abre el archivo `index.html` con tu navegador (doble click)
+3. Revisa que TODAS las imágenes se vean
+4. Si alguna no se ve:
+   - Revisa que el nombre sea exacto
+   - Revisa que esté en formato .jpg (no .png, no .jpeg)
+   - Si descargaste como .jpeg, renómbrala a .jpg
+
+---
+
+## 🚀 CUANDO ESTÉN TODAS:
+
+1. Comprime la carpeta `ipul-site` completa en ZIP
+2. Sube a Netlify → "Deploy manually"
+3. Arrastra el ZIP
+4. ¡Listo!
+
+---
+
+## 💡 ATAJO ULTRA-RÁPIDO:
+
+Si no quieres descargar manualmente, hazme saber y te preparo una versión que usa las URLs directas de Weebly (aunque no es tan rápido como tener las imágenes locales).
+
+---
+
+**¿Necesitas ayuda descargando alguna imagen específica?**

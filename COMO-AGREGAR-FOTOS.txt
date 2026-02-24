@@ -1,0 +1,220 @@
+# 📸 GUÍA PARA AGREGAR FOTOS A LA GALERÍA
+
+## 🎉 ¡NUEVA SECCIÓN AGREGADA!
+
+Tu sitio ahora tiene una **Galería de Fotos** profesional con:
+✅ Filtros por categoría (Todas, Cultos, Eventos, Comunidad, Jóvenes, Niños)
+✅ Click en foto para ver grande (Lightbox)
+✅ Navegación con flechas entre fotos
+✅ Animaciones suaves
+✅ 100% responsive
+
+---
+
+## 📁 ESTRUCTURA DE CARPETAS:
+
+```
+ipul-site/
+├── index.html
+└── images/
+    ├── galeria/
+    │   ├── foto1.jpg  ← REEMPLAZA ESTAS
+    │   ├── foto2.jpg  ← CON TUS FOTOS
+    │   ├── foto3.jpg  ← REALES
+    │   ├── foto4.jpg
+    │   ├── foto5.jpg
+    │   ├── foto6.jpg
+    │   ├── foto7.jpg
+    │   ├── foto8.jpg
+    │   └── foto9.jpg
+    └── (otras imágenes del sitio)
+```
+
+---
+
+## ✅ CÓMO AGREGAR FOTOS (3 PASOS SIMPLES):
+
+### **PASO 1: Preparar tus fotos**
+
+1. Selecciona las fotos que quieres subir
+2. Renómbralas como: `foto1.jpg`, `foto2.jpg`, `foto3.jpg`, etc.
+3. **IMPORTANTE:** Deben ser en formato `.jpg` (no .png, no .jpeg)
+4. Recomendado: Fotos de mínimo 800px de ancho para que se vean bien
+
+### **PASO 2: Colocar las fotos**
+
+1. Abre la carpeta `ipul-site`
+2. Ve a `images` → `galeria`
+3. **REEMPLAZA** las fotos actuales (foto1.jpg hasta foto9.jpg) con tus fotos reales
+4. Mantén los mismos nombres (foto1.jpg, foto2.jpg, etc.)
+
+### **PASO 3: Editar títulos y categorías** (OPCIONAL)
+
+Si quieres cambiar los títulos de las fotos o sus categorías:
+
+1. Abre el archivo `index.html` con un editor de texto
+2. Busca la sección: `<!-- Gallery Section -->`
+3. Encontrarás bloques como este:
+
+```html
+<div class="gallery-item" data-category="comunidad">
+    <img src="images/galeria/foto1.jpg" alt="Reunión de familia">
+    <div class="gallery-overlay">
+        <div class="gallery-title">Reunión Familiar</div>
+        <div class="gallery-category">Comunidad</div>
+    </div>
+</div>
+```
+
+**Puedes cambiar:**
+- `data-category="comunidad"` → La categoría (cultos, eventos, comunidad, jovenes, ninos)
+- `gallery-title` → El título que aparece sobre la foto
+- `gallery-category` → El texto de la categoría que se muestra
+
+---
+
+## 🆕 CÓMO AGREGAR MÁS DE 9 FOTOS:
+
+Si quieres agregar más fotos (por ejemplo, 20 fotos en total):
+
+### **PASO 1: Agregar las fotos a la carpeta**
+
+1. Nombra las nuevas fotos: `foto10.jpg`, `foto11.jpg`, `foto12.jpg`, etc.
+2. Ponlas en la carpeta `images/galeria/`
+
+### **PASO 2: Agregar el código HTML**
+
+Abre `index.html` y busca donde terminan las fotos (después de foto9).
+
+**Copia y pega este bloque** por cada foto nueva que quieras agregar:
+
+```html
+<!-- Gallery Item 10 -->
+<div class="gallery-item" data-category="comunidad">
+    <img src="images/galeria/foto10.jpg" alt="Descripción">
+    <div class="gallery-overlay">
+        <div class="gallery-title">Título de la Foto</div>
+        <div class="gallery-category">Comunidad</div>
+    </div>
+</div>
+```
+
+**Recuerda cambiar:**
+- El número del comentario: `<!-- Gallery Item 10 -->`
+- El nombre del archivo: `foto10.jpg`
+- La categoría: `data-category="comunidad"` (puede ser: cultos, eventos, comunidad, jovenes, ninos)
+- El título: `Título de la Foto`
+- La categoría visible: `Comunidad`
+
+---
+
+## 🎨 CATEGORÍAS DISPONIBLES:
+
+- **all** = Muestra todas
+- **cultos** = Servicios dominicales, adoración, predicaciones
+- **eventos** = Conferencias, vigilias, eventos especiales
+- **comunidad** = Reuniones familiares, convivencias
+- **jovenes** = Actividades de jóvenes, retiros
+- **ninos** = Escuela dominical, actividades infantiles
+
+---
+
+## 📸 CONSEJOS PARA MEJORES FOTOS:
+
+1. **Tamaño recomendado:** 1200px - 1920px de ancho
+2. **Formato:** .jpg (más liviano que .png)
+3. **Orientación:** Horizontal o cuadrada funcionan mejor
+4. **Calidad:** Buena iluminación, enfoque nítido
+5. **Peso:** Ideal menos de 500KB por foto (para que cargue rápido)
+
+---
+
+## 🚀 DESPUÉS DE AGREGAR FOTOS:
+
+1. Abre `index.html` en tu navegador para verificar
+2. Prueba los filtros (Todas, Cultos, Eventos, etc.)
+3. Click en una foto para ver el lightbox
+4. Si todo se ve bien → Comprime en ZIP
+5. Sube a Netlify (solo arrastra el ZIP nuevo)
+6. Netlify actualiza automáticamente en 30 segundos
+
+---
+
+## 🔄 ACTUALIZAR FOTOS EN NETLIFY:
+
+**Método 1 (Arrastra y suelta):**
+1. Haz los cambios localmente (agrega/reemplaza fotos)
+2. Comprime la carpeta `ipul-site` en ZIP
+3. Ve a Netlify → Tu sitio → "Deploys" tab
+4. Arrastra el nuevo ZIP
+5. ¡Listo! Se actualiza automáticamente
+
+**Método 2 (Más avanzado - para el futuro):**
+Si quieres solo actualizar fotos sin tocar el código, podemos configurar un sistema más simple después.
+
+---
+
+## 💡 EJEMPLO COMPLETO:
+
+Imagina que tienes estas fotos nuevas:
+- Culto del domingo pasado → `foto10.jpg`
+- Retiro de jóvenes → `foto11.jpg`
+- Escuela dominical → `foto12.jpg`
+
+**Paso 1:** Renombra y pon en `/images/galeria/`
+
+**Paso 2:** Agrega este código en el HTML:
+
+```html
+<!-- Gallery Item 10 -->
+<div class="gallery-item" data-category="cultos">
+    <img src="images/galeria/foto10.jpg" alt="Culto dominical">
+    <div class="gallery-overlay">
+        <div class="gallery-title">Culto Dominical - Enero 2026</div>
+        <div class="gallery-category">Cultos</div>
+    </div>
+</div>
+
+<!-- Gallery Item 11 -->
+<div class="gallery-item" data-category="jovenes">
+    <img src="images/galeria/foto11.jpg" alt="Retiro jóvenes">
+    <div class="gallery-overlay">
+        <div class="gallery-title">Retiro de Jóvenes 2026</div>
+        <div class="gallery-category">Jóvenes</div>
+    </div>
+</div>
+
+<!-- Gallery Item 12 -->
+<div class="gallery-item" data-category="ninos">
+    <img src="images/galeria/foto12.jpg" alt="Escuela dominical">
+    <div class="gallery-overlay">
+        <div class="gallery-title">Escuela Dominical</div>
+        <div class="gallery-category">Niños</div>
+    </div>
+</div>
+```
+
+**Paso 3:** Guarda, comprime, sube a Netlify. ¡Listo!
+
+---
+
+## ❓ PREGUNTAS FRECUENTES:
+
+**P: ¿Puedo usar fotos en vertical?**
+R: Sí, pero se recortan automáticamente. Horizontal es mejor.
+
+**P: ¿Cuántas fotos puedo agregar?**
+R: Sin límite técnico, pero recomiendo máximo 30-40 para que cargue rápido.
+
+**P: ¿Las fotos tienen que ser todas del mismo tamaño?**
+R: No, el código las ajusta automáticamente.
+
+**P: ¿Puedo cambiar los nombres de las categorías?**
+R: Sí, pero tendrías que editar también los botones de filtro en el HTML.
+
+**P: ¿Se pueden ver las fotos en celular?**
+R: Sí, el diseño es 100% responsive.
+
+---
+
+**¿Necesitas ayuda agregando las fotos? ¡Avísame!** 📸

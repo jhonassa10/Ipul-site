@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directivas 2026 - IPUL Brewster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d8f;
+            --secondary: #d4af37;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--light); }
+        
+        nav { position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #1a4d8f 0%, #2563a8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .back-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .back-link:hover { color: var(--secondary); }
+        
+        .directivas-header { padding: 150px 40px 80px; text-align: center; background: linear-gradient(135deg, var(--primary) 0%, #2563a8 100%); color: white; }
+        .directivas-header h1 { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 20px; }
+        .directivas-header p { font-size: 20px; opacity: 0.9; }
+        
+        .directivas-container { max-width: 1400px; margin: 0 auto; padding: 80px 40px; }
+        .directivas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-bottom: 60px; }
+        .directiva-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .directiva-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .directiva-card img { width: 100%; height: 250px; object-fit: cover; }
+        .directiva-info { padding: 30px; }
+        .directiva-info h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin-bottom: 15px; text-align: center; }
+        .directiva-info p { color: #555; line-height: 1.8; font-size: 15px; text-align: center; }
+        
+        @media (max-width: 968px) {
+            .directivas-header h1 { font-size: 36px; }
+            .directivas-grid { grid-template-columns: 1fr; }
+            .directivas-container { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">IPUL BREWSTER</div>
+            <a href="index.html" class="back-link">← Volver al Inicio</a>
+        </div>
+    </nav>
+    
+    <div class="directivas-header">
+        <h1>Directivas 2026</h1>
+        <p>Siervos comprometidos con la obra del Señor</p>
+    </div>
+    
+    <div class="directivas-container">
+        <div class="directivas-grid">
+            <!-- Junta Local -->
+            <div class="directiva-card">
+                <img src="images/directivas/junta-local.jpg" alt="Junta Local">
+                <div class="directiva-info">
+                    <h3>Junta Local</h3>
+                    <p>Presidente: Pastor Daniel Galvis<br>
+                    Secretario: Tomas Cano<br>
+                    Tesorero: Jose Micolta</p>
+                </div>
+            </div>
+
+            <!-- Alabanza -->
+            <div class="directiva-card">
+                <img src="images/directivas/alabanza.jpg" alt="Alabanza">
+                <div class="directiva-info">
+                    <h3>Alabanza</h3>
+                    <p>Líder<br>Secretaria<br>Tesorero</p>
+                </div>
+            </div>
+
+            <!-- Escuela Dominical -->
+            <div class="directiva-card">
+                <img src="images/directivas/escuela-dominical.jpg" alt="Escuela Dominical">
+                <div class="directiva-info">
+                    <h3>Escuela Dominical</h3>
+                    <p>Líder<br>Secretaria<br>Tesorera<br>Vocal</p>
+                </div>
+            </div>
+
+            <!-- Misiones -->
+            <div class="directiva-card">
+                <img src="images/directivas/misiones.jpg" alt="Misiones">
+                <div class="directiva-info">
+                    <h3>Misiones</h3>
+                    <p>Líder: Marisela Micolta<br>
+                    Secretaria: Karina Salguero<br>
+                    Vocal: Marisela Micolta</p>
+                </div>
+            </div>
+
+            <!-- Jóvenes -->
+            <div class="directiva-card">
+                <img src="images/directivas/jovenes.jpg" alt="Jóvenes">
+                <div class="directiva-info">
+                    <h3>Jóvenes</h3>
+                    <p>Líder: Orbey Pacheco<br>
+                    Secretaria: Gabriela Guerrero<br>
+                    Tesorero: Felipe Marin<br>
+                    Vocal: Sarai Guerra</p>
+                </div>
+            </div>
+
+            <!-- Multimedia -->
+            <div class="directiva-card">
+                <img src="images/directivas/multimedia.jpg" alt="Multimedia">
+                <div class="directiva-info">
+                    <h3>Directiva Multimedia</h3>
+                    <p>Equipo técnico y audiovisual</p>
+                </div>
+            </div>
+
+            <!-- Pro-Templo y Cafetería -->
+            <div class="directiva-card">
+                <img src="images/directivas/protemplo.jpg" alt="Pro-Templo">
+                <div class="directiva-info">
+                    <h3>Pro-Templo y Cafetería</h3>
+                    <p>Mantenimiento y logística</p>
+                </div>
+            </div>
+
+            <!-- Caballeros -->
+            <div class="directiva-card">
+                <img src="images/directivas/caballeros.jpg" alt="Caballeros">
+                <div class="directiva-info">
+                    <h3>Caballeros</h3>
+                    <p>Secretaria: Gabriela Guerrero<br>
+                    Secretario: Tomas Cano<br>
+                    Tesorero: Carlos Villegas</p>
+                </div>
+            </div>
+
+            <!-- Evangelismo -->
+            <div class="directiva-card">
+                <img src="images/directivas/evangelismo.jpg" alt="Evangelismo">
+                <div class="directiva-info">
+                    <h3>Evangelismo</h3>
+                    <p>Líder: Cristian Escobar<br>
+                    Secretario: Gabriel Davila<br>
+                    Tesorero: Danilo Santos</p>
+                </div>
+            </div>
+
+            <!-- Maestros -->
+            <div class="directiva-card">
+                <img src="images/directivas/maestros.jpg" alt="Maestros">
+                <div class="directiva-info">
+                    <h3>Maestros Escuela Dominical</h3>
+                    <p>Equipo dedicado a la enseñanza de la Palabra</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

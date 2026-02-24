@@ -1,0 +1,106 @@
+# 📋 INSTRUCCIONES PARA COMPLETAR TU SITIO WEB
+
+## ✅ LO QUE YA ESTÁ LISTO:
+- ✅ index.html (página principal con diseño moderno)
+- ✅ ofrenda-zelle.png (imagen de Zelle/QR)
+- ✅ noches-victoria-damas.png (imagen del evento de damas)
+
+## 🖼️ IMÁGENES QUE NECESITAS AGREGAR:
+
+Descarga estas imágenes de tu sitio actual (www.ipulbrewster.com) y guárdalas en la carpeta `images/`:
+
+### 1. **hero-church.jpg**
+   - **Dónde encontrarla:** Es la imagen principal que aparece al inicio de tu sitio actual
+   - **URL:** https://www.ipulbrewster.com/uploads/4/6/8/1/46817705/published/photo-2024-05-21-12-01-22.jpg
+   - **Para qué:** Fondo del Hero (primera sección)
+   - **Cómo descargarla:** Click derecho → "Guardar imagen como..." → Renombrar a "hero-church.jpg"
+
+### 2. **community.jpg**
+   - **Dónde encontrarla:** Es la foto del grupo de personas/comunidad
+   - **URL:** https://www.ipulbrewster.com/uploads/4/6/8/1/46817705/dl5a3028-enhanced-nr_orig.jpg
+   - **Para qué:** Sección "Más que una comunidad, somos una familia"
+   - **Cómo descargarla:** Click derecho → "Guardar imagen como..." → Renombrar a "community.jpg"
+
+### 3. **oracion-caballeros.jpg**
+   - **Opción A:** Usa una de las imágenes de eventos actuales de tu sitio
+   - **Opción B:** Usa la misma imagen de noches-victoria-damas.png si no tienes otra
+   - **Para qué:** Tarjeta de evento "Oración de Caballeros"
+
+### 4. **oracion-viernes.jpg**
+   - **Opción A:** Usa una de las imágenes de eventos actuales de tu sitio
+   - **Opción B:** Usa la misma imagen de noches-victoria-damas.png si no tienes otra
+   - **Para qué:** Tarjeta de evento "Oración General - Viernes"
+
+## 📁 ESTRUCTURA DE CARPETAS FINAL:
+
+```
+ipul-site/
+├── index.html
+└── images/
+    ├── ofrenda-zelle.png ✅ (ya incluida)
+    ├── noches-victoria-damas.png ✅ (ya incluida)
+    ├── hero-church.jpg ⚠️ (necesitas agregar)
+    ├── community.jpg ⚠️ (necesitas agregar)
+    ├── oracion-caballeros.jpg ⚠️ (necesitas agregar)
+    └── oracion-viernes.jpg ⚠️ (necesitas agregar)
+```
+
+## 🚀 PASOS PARA SUBIR A NETLIFY:
+
+### OPCIÓN 1: Subir ahora con placeholders temporales
+Si quieres ver el sitio funcionando YA (con algunas imágenes faltantes):
+1. Comprime la carpeta `ipul-site` en un archivo ZIP
+2. Ve a netlify.com → "Add new site" → "Deploy manually"
+3. Arrastra el ZIP
+4. ¡Listo! Tendrás un link temporal para ver tu sitio
+
+Después puedes reemplazar las imágenes faltantes.
+
+### OPCIÓN 2: Completar todas las imágenes primero (RECOMENDADO)
+1. Descarga las 4 imágenes mencionadas arriba
+2. Guárdalas en la carpeta `images/` con los nombres exactos
+3. Comprime la carpeta `ipul-site` en ZIP
+4. Sube a Netlify
+5. ¡Sitio completo desde el inicio!
+
+## 🔗 CONECTAR TU DOMINIO (ipulbrewster.com):
+
+Una vez que el sitio esté en Netlify:
+
+1. **En Netlify:**
+   - Ve a "Domain settings"
+   - Click "Add custom domain"
+   - Escribe: ipulbrewster.com
+   - Te dará instrucciones de DNS
+
+2. **En Weebly:**
+   - Ve a Domains → Manage (junto a ipulbrewster.com)
+   - Busca "DNS Settings" o "Advanced DNS"
+   - Cambia los Name Servers o A Records según Netlify te indique
+
+3. **Espera 24-48 horas** (usualmente menos)
+   - Tu nuevo sitio estará en ipulbrewster.com
+
+## ❓ PROBLEMAS COMUNES:
+
+**"No puedo descargar las imágenes del sitio actual"**
+→ Opción: Usa imágenes temporales similares o déjame saber y te ayudo
+
+**"Las imágenes no se ven en el sitio"**
+→ Asegúrate que los nombres de archivo sean EXACTOS (con mayúsculas/minúsculas correctas)
+
+**"El sitio se ve raro en mi celular"**
+→ No debería pasar, el diseño es responsive. Pero avísame y lo arreglo.
+
+## 💡 MEJORAS FUTURAS (OPCIONAL):
+
+Después de que el sitio esté live, puedes agregar:
+- Más páginas (Blog, Enseñanzas, etc.)
+- Formulario de contacto
+- Sistema de donaciones integrado
+- Calendario de eventos interactivo
+- Galería de fotos
+
+---
+
+**¿Necesitas ayuda con algo? ¡Pregúntame!** 🚀
